@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "ListOfPlanets"
+  "defaultProject": "ListOfPlanets",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
