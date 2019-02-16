@@ -1,0 +1,23 @@
+<div *ngIf="planetList">
+  <div>
+    <div>
+      <label class for="search">Search for planet: </label>
+      <input type="text" class="form-control" name="search" id="search" [(ngModel)]="query" (keyup)="onSearch()">
+    </div>
+  </div>
+
+  <span>
+    <ngb-pagination
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="collectionSize"></ngb-pagination>
+  </span>
+
+  <div class="list-group">
+    <a class="list-group-item list-group-item-action fa"
+       *ngFor="let planet of filteredPlanets | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+      {{planet.name}}
+    </a>
+  </div>
+</div>
+
