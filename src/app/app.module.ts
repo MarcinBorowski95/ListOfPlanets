@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers, metaReducers } from './store/reducers';
+import { reducers, metaReducers } from './store/app.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppEffects } from './store/effects/app.effects';
+import { AppEffects } from './store/app.effects';
 import { environment } from "../environments/environment";
 
 @NgModule({
