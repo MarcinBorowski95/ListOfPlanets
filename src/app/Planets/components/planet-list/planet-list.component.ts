@@ -14,8 +14,9 @@ export class PlanetListComponent implements OnChanges {
   page: number = 1;
   pageSize: number = 5;
   collectionSize: number;
+  pageSizes: Array<number> = [5, 10, 25, 100];
 
-  constructor(private searchPipe: SearchPipe) { }
+  constructor(private searchPipe: SearchPipe) {}
 
   ngOnChanges() {
     this.filteredPlanets = this.planetList;
@@ -25,5 +26,9 @@ export class PlanetListComponent implements OnChanges {
   onSearch() {
     this.filteredPlanets = this.searchPipe.transform(this.planetList, 'name', this.query);
     this.collectionSize = this.filteredPlanets.length;
+  }
+
+  changePageSize(size: number) {
+    this.pageSize = size;
   }
 }
