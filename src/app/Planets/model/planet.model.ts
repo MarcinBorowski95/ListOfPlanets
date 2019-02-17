@@ -1,6 +1,7 @@
 import { PlanetDto } from "../Dto/planet.dto";
 
 export class PlanetModel {
+  id: number = null;
   name: string = null;
   rotation_period: number = null;
   orbital_period: number = null;
@@ -14,6 +15,7 @@ export class PlanetModel {
 
 export function fromDtoToModelPlanet (planetDto: PlanetDto): PlanetModel {
   return {
+    id: +planetDto.url.match(/\d+/),
     name: planetDto.name,
     rotation_period: +planetDto.rotation_period,
     orbital_period: +planetDto.orbital_period,
