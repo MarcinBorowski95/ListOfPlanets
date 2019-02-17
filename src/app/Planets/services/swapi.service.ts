@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from "rxjs";
+import { forkJoin, Observable } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { PlanetListPageDto } from "./Dto/planet-list-page.dto";
-import { catchError, map, tap } from "rxjs/operators";
-import { fromDtoToModelPlanets, PlanetModel } from "./model/planet.model";
-import { computeNumberOfApiPages } from "./utils/computeNumberOfApiPages";
-import { computeApiPage } from "./utils/computeApiPage";
-import { computeFirstApiResultIndex } from "./utils/computeFirstApiResultIndex";
-import { PlanetListModel } from "./model/planet-list.model";
-import { isNull } from "util";
-import has = Reflect.has;
+import { PlanetListPageDto } from "../Dto/planet-list-page.dto";
+import {  map} from "rxjs/operators";
+import { fromDtoToModelPlanet, fromDtoToModelPlanets, PlanetModel } from "../model/planet.model";
+import { computeNumberOfApiPages } from "../utils/computeNumberOfApiPages";
+import { computeApiPage } from "../utils/computeApiPage";
+import { computeFirstApiResultIndex } from "../utils/computeFirstApiResultIndex";
+import { PlanetListModel } from "../model/planet-list.model";
+import { PlanetDto } from "../Dto/planet.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +45,6 @@ export class SwapiService {
         };
         return this.http.get<PlanetListPageDto>(this.planetsUrl, {params}).pipe(
           map((dto: PlanetListPageDto) => {
-            console.log(dto);
             listSize = dto.count;
             return fromDtoToModelPlanets(dto.results)
           }),
@@ -60,6 +58,12 @@ export class SwapiService {
         const last = first + pageSize;
         return {listSize: listSize, planets: planets.splice(first, last)}
       }),
+    );
+  }
+
+  fetchPlanet(id: number): Observable<PlanetModel> {
+    return this.http.get<PlanetDto>(this.planetsUrl + id.toString()).pipe(
+      map((dto: PlanetDto) => fromDtoToModelPlanet(dto))
     );
   }
 }

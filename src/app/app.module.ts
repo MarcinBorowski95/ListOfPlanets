@@ -13,11 +13,17 @@ import { environment } from "../environments/environment";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { PlanetListComponent } from './Planets/components/planet-list/planet-list.component';
+import { PaginationComponent } from './Planets/components/pagination/pagination.component';
+import { PlanetComponent } from './Planets/components/planet/planet.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlanetListComponent
+    PlanetListComponent,
+    PaginationComponent,
+    PlanetComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

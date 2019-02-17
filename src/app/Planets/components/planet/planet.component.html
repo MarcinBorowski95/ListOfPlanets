@@ -1,0 +1,4 @@
+<button class="btn btn-primary" [routerLink]="['/planet-list']"> Back </button>
+<div *ngIf="planet$ | async as planet">
+  {{planet.name}}
+</div>

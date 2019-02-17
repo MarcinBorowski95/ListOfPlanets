@@ -1,8 +1,8 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { PlanetModel } from "../../model/planet.model";
 import { BehaviorSubject, combineLatest } from "rxjs";
 import { debounceTime, map, switchMap } from "rxjs/operators";
-import { SwapiService } from "../../swapi.service";
+import { SwapiService } from "../../services/swapi.service";
 import { PlanetListModel } from "../../model/planet-list.model";
 
 @Component({
@@ -10,10 +10,9 @@ import { PlanetListModel } from "../../model/planet-list.model";
   templateUrl: './planet-list.component.html',
   styleUrls: ['./planet-list.component.scss']
 })
-export class PlanetListComponent implements OnChanges {
+export class PlanetListComponent{
   filteredPlanets: PlanetModel[];
   collectionSize: number;
-  pageSizes: Array<number> = [5, 10, 25, 100];
   private querySubject: BehaviorSubject<string>;
   private pageSubject: BehaviorSubject<number>;
   private pageSizeSubject: BehaviorSubject<number>;
@@ -34,9 +33,6 @@ export class PlanetListComponent implements OnChanges {
       this.filteredPlanets = results.planets;
       this.collectionSize = results.listSize;
     })
-  }
-
-  ngOnChanges() {
   }
 
   onQueryChange(val: string) {
