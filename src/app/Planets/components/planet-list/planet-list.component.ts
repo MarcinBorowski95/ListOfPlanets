@@ -1,6 +1,9 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { PlanetModel } from "../../model/planet.model";
-import { SearchPipe } from "../../pipe/search.pipe";
+import { BehaviorSubject, combineLatest } from "rxjs";
+import { debounceTime, map, switchMap } from "rxjs/operators";
+import { SwapiService } from "../../swapi.service";
+import { PlanetListModel } from "../../model/planet-list.model";
 
 @Component({
   selector: 'app-planet-list',
@@ -8,27 +11,45 @@ import { SearchPipe } from "../../pipe/search.pipe";
   styleUrls: ['./planet-list.component.scss']
 })
 export class PlanetListComponent implements OnChanges {
-  @Input() planetList: PlanetModel[];
   filteredPlanets: PlanetModel[];
-  query: string;
-  page: number = 1;
-  pageSize: number = 5;
   collectionSize: number;
   pageSizes: Array<number> = [5, 10, 25, 100];
+  private querySubject: BehaviorSubject<string>;
+  private pageSubject: BehaviorSubject<number>;
+  private pageSizeSubject: BehaviorSubject<number>;
 
-  constructor(private searchPipe: SearchPipe) {}
-
-  ngOnChanges() {
-    this.filteredPlanets = this.planetList;
-    this.collectionSize = this.planetList ? this.planetList.length : 0;
+  constructor(private service: SwapiService) {
+    this.querySubject = new BehaviorSubject('');
+    this.pageSubject = new BehaviorSubject(1);
+    this.pageSizeSubject = new BehaviorSubject(5);
+    combineLatest(
+      this.querySubject,
+      this.pageSubject,
+      this.pageSizeSubject,
+    ).pipe(
+      map(([query, page, pageSize]) => ({query, page, pageSize})),
+      debounceTime(500),
+      switchMap((args) => this.service.fetchPlanetsPaginated(args))
+    ).subscribe((results: PlanetListModel) => {
+      this.filteredPlanets = results.planets;
+      this.collectionSize = results.listSize;
+    })
   }
 
-  onSearch() {
-    this.filteredPlanets = this.searchPipe.transform(this.planetList, 'name', this.query);
-    this.collectionSize = this.filteredPlanets.length;
+  ngOnChanges() {
+  }
+
+  onQueryChange(val: string) {
+    this.pageSubject.next(1);
+    this.querySubject.next(val);
   }
 
   changePageSize(size: number) {
-    this.pageSize = size;
+    this.pageSubject.next(1);
+    this.pageSizeSubject.next(size);
+  }
+
+  onPageChange(page: number) {
+    this.pageSubject.next(page);
   }
 }

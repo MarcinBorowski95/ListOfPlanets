@@ -10,17 +10,13 @@ import { reducers, metaReducers } from './store/app.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppEffects } from './store/app.effects';
 import { environment } from "../environments/environment";
-import { PlanetListWrapperComponent } from './Planets/containers/planet-list-wrapper/planet-list-wrapper.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
-import { SearchPipe } from './Planets/pipe/search.pipe';
 import { PlanetListComponent } from './Planets/components/planet-list/planet-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlanetListWrapperComponent,
-    SearchPipe,
     PlanetListComponent
   ],
   imports: [
@@ -33,7 +29,7 @@ import { PlanetListComponent } from './Planets/components/planet-list/planet-lis
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [SearchPipe],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
