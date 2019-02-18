@@ -23,7 +23,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     PlanetListComponent,
     PaginationComponent,
     PlanetComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

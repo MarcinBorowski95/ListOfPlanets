@@ -10,7 +10,7 @@ import { PlanetListModel } from "../../model/planet-list.model";
   templateUrl: './planet-list.component.html',
   styleUrls: ['./planet-list.component.scss']
 })
-export class PlanetListComponent{
+export class PlanetListComponent {
   filteredPlanets: PlanetModel[];
   collectionSize: number;
   private querySubject: BehaviorSubject<string>;
@@ -30,7 +30,7 @@ export class PlanetListComponent{
       debounceTime(500),
       switchMap((args) => this.service.fetchPlanetsPaginated(args))
     ).subscribe((results: PlanetListModel) => {
-      this.filteredPlanets = results.planets;
+      this.filteredPlanets = results.planets.splice(0, results.planets.length - results.errorNumber);
       this.collectionSize = results.listSize;
     })
   }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from "rxjs";
+import { forkJoin, Observable, of } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { PlanetListPageDto } from "../Dto/planet-list-page.dto";
-import {  map} from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import { fromDtoToModelPlanet, fromDtoToModelPlanets, PlanetModel } from "../model/planet.model";
 import { computeNumberOfApiPages } from "../utils/computeNumberOfApiPages";
 import { computeApiPage } from "../utils/computeApiPage";
@@ -20,22 +20,12 @@ export class SwapiService {
   constructor(private http: HttpClient) {
   }
 
-  fetchPlanetList(): Observable<PlanetModel[]> {
-    let responses = [];
-    for (let i = 1; i <= 7; i++) {
-      const params = new HttpParams().set('page', i.toString());
-      responses.push(this.http.get<PlanetListPageDto>(this.planetsUrl, {params: params}).pipe(
-        map((dto: PlanetListPageDto) => fromDtoToModelPlanets(dto.results))
-      ));
-    }
-    return forkJoin(responses);
-  }
-
   fetchPlanetsPaginated(args: { query: string, page: number, pageSize: number }): Observable<PlanetListModel> {
     const {query, page, pageSize} = args;
     const apiPageSize = 10;
     const firstPage = computeApiPage({page, pageSize, apiPageSize});
     let listSize: number;
+    let errorNumber = 0;
     const requests = Array.from(
       {length: computeNumberOfApiPages({page, pageSize, apiPageSize})},
       (_, i) => {
@@ -48,6 +38,10 @@ export class SwapiService {
             listSize = dto.count;
             return fromDtoToModelPlanets(dto.results)
           }),
+          catchError((err) => {
+            errorNumber++;
+            return of(err)
+          })
         )
       }
     );
@@ -56,7 +50,7 @@ export class SwapiService {
       map((planets) => {
         const first = computeFirstApiResultIndex({page, pageSize, apiPageSize});
         const last = first + pageSize;
-        return {listSize: listSize, planets: planets.splice(first, last)}
+        return {listSize: listSize, planets: planets.splice(first, last), errorNumber: errorNumber}
       }),
     );
   }

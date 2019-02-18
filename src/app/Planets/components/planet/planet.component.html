@@ -1,4 +1,25 @@
-<button class="btn btn-primary" [routerLink]="['/planet-list']"> Back </button>
-<div *ngIf="planet$ | async as planet">
-  {{planet.name}}
+<div class="container w-50 h-50 mt-3">
+  <button class="btn btn-lg btn-primary w-50"
+          style="border-radius: 5px 5px 0 0"
+          [routerLink]="['/planet-list']"> Back to planet list </button>
+  <div class="card card-image shadow" *ngIf="planet$ | async as planet"
+       style="background-image: url(http://s1.picswalls.com/wallpapers/2016/06/16/latest-planet-wallpaper_115144863_310.jpg);
+       border-radius: 0 5px 5px 5px;">
+    <div class="text-white text-center rgba-stylish-strong p-0">
+      <div class="p-2">
+        <h1 class="card-title">{{planet.name}}</h1>
+        <div class="list-group d-flex align-items-center mb-3 text-black-50">
+          <p class="list-group-item w-75">Climate: {{planet.climate}}</p>
+          <p class="list-group-item w-75">Terrain: {{planet.terrain}}</p>
+          <p class="list-group-item w-75">Water surface: {{planet.surface_water}}</p>
+          <p class="list-group-item w-75">Population: {{planet.population}}</p>
+          <p class="list-group-item w-75">Gravity: {{planet.gravity}}</p>
+          <p class="list-group-item w-75">Diameter: {{planet.diameter}}</p>
+          <p class="list-group-item w-75">Orbital period: {{planet.orbital_period}}</p>
+          <p class="list-group-item w-75">Rotation period: {{planet.rotation_period}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
