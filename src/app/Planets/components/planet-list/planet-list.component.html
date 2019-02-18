@@ -1,4 +1,13 @@
-<div *ngIf="filteredPlanets" >
+<ngx-spinner
+  bdOpacity = 0.9
+  bdColor = "white"
+  size = "large"
+  color = "#2f7aff"
+  type = "ball-atom"
+  fullScreen = "true">
+  <p style="color: cornflowerblue" > Loading Planets </p>
+</ngx-spinner>
+<div *ngIf="filteredPlanets">
   <div class="form-group m-3">
     <label for="search"><h4>Search for planet:</h4></label>
     <input type="text" class="form-control" name="search" id="search" [ngModel]="querySubject | async"

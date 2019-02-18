@@ -3,7 +3,8 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { SwapiService } from "../../services/swapi.service";
 import { Observable } from "rxjs";
 import { PlanetModel } from "../../model/planet.model";
-import { switchMap } from "rxjs/operators";
+import { switchMap, tap } from "rxjs/operators";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-planet',
@@ -13,13 +14,13 @@ import { switchMap } from "rxjs/operators";
 export class PlanetComponent implements OnInit {
   planet$: Observable<PlanetModel>;
 
-  constructor(private route: ActivatedRoute, private service: SwapiService) { }
+  constructor(private route: ActivatedRoute, private service: SwapiService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.planet$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.service.fetchPlanet(+params.get('id'))
-      )
+      tap(() => this.spinner.show()),
+      switchMap((params: ParamMap) => this.service.fetchPlanet(+params.get('id'))),
+      tap(() => this.spinner.hide()),
     )
   }
 

@@ -16,6 +16,7 @@ import { PlanetListComponent } from './Planets/components/planet-list/planet-lis
 import { PaginationComponent } from './Planets/components/pagination/pagination.component';
 import { PlanetComponent } from './Planets/components/planet/planet.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HttpClientModule,
     NgbModule,
     FormsModule,
+    NgxSpinnerModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
