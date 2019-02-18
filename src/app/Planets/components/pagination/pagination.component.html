@@ -1,11 +1,13 @@
 <div class="d-flex flex-row justify-content-center align-items-center">
   <ngb-pagination class="mt-3 mr-4"
+                  [maxSize]="3"
+                  [boundaryLinks]="true"
                   [page]="page"
                   (pageChange)="onPageChange($event)"
                   [pageSize]="pageSize"
                   [collectionSize]="collectionSize"></ngb-pagination>
   <div class="btn-group">
-    <div *ngFor="let setPageSize of pageSizes" class="btn btn-primary"
+    <div *ngFor="let setPageSize of pageSizes" class="btn btn-primary" [ngClass]="{'active': setPageSize === pageSize}"
          (click)="changePageSize(setPageSize)"> {{setPageSize}} </div>
   </div>
 </div>
