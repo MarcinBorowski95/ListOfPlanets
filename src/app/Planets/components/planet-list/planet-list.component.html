@@ -9,7 +9,7 @@
 </ngx-spinner>
 <div *ngIf="filteredPlanets">
   <div class="form-group m-3">
-    <label for="search"><h4>Search for planet:</h4></label>
+    <label class="h4" for="search">Search for planet:</label>
     <input type="text" class="form-control" name="search" id="search" [ngModel]="querySubject | async"
            (ngModelChange)="onQueryChange($event)">
   </div>

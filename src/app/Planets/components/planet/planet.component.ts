@@ -14,7 +14,9 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class PlanetComponent implements OnInit {
   planet$: Observable<PlanetModel>;
 
-  constructor(private route: ActivatedRoute, private service: SwapiService, private spinner: NgxSpinnerService) { }
+  constructor(private route: ActivatedRoute,
+              private service: SwapiService,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.planet$ = this.route.paramMap.pipe(

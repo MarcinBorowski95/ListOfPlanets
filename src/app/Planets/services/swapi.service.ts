@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from "rxjs";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { PlanetListPageDto } from "../Dto/planet-list-page.dto";
 import { catchError, map } from "rxjs/operators";
 import { fromDtoToModelPlanet, fromDtoToModelPlanets, PlanetModel } from "../model/planet.model";
