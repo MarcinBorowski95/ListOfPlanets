@@ -1,4 +1,4 @@
-import { computeNumberOfApiPages } from "./computeNumberOfApiPages";
+import { computeNumberOfApiPages } from "./compute-number-of-api-pages";
 
 fdescribe("computeNumberOfApiPages", () => {
   exampleTest({page: 1, pageSize: 5, apiPageSize: 10, expectedApiPage: 1});

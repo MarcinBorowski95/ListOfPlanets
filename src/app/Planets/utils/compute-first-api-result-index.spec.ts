@@ -1,4 +1,4 @@
-import { computeFirstApiResultIndex } from "./computeFirstApiResultIndex";
+import { computeFirstApiResultIndex } from "./compute-first-api-result-index";
 
 fdescribe("computeFirstApiResultIndex", () => {
   exampleTest({page: 1, pageSize: 5, apiPageSize: 10, expectedApiPage: 0});

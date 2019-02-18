@@ -4,9 +4,9 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { PlanetListPageDto } from "../Dto/planet-list-page.dto";
 import { catchError, map } from "rxjs/operators";
 import { fromDtoToModelPlanet, fromDtoToModelPlanets, PlanetModel } from "../model/planet.model";
-import { computeNumberOfApiPages } from "../utils/computeNumberOfApiPages";
-import { computeApiPage } from "../utils/computeApiPage";
-import { computeFirstApiResultIndex } from "../utils/computeFirstApiResultIndex";
+import { computeNumberOfApiPages } from "../utils/compute-number-of-api-pages";
+import { computeApiPage } from "../utils/compute-api-page";
+import { computeFirstApiResultIndex } from "../utils/compute-first-api-result-index";
 import { PlanetListModel } from "../model/planet-list.model";
 import { PlanetDto } from "../Dto/planet.dto";
 

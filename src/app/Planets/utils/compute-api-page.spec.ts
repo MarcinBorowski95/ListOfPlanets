@@ -1,4 +1,4 @@
-import { computeApiPage } from "./computeApiPage";
+import { computeApiPage } from "./compute-api-page";
 
 fdescribe("computeApiPage", () => {
   exampleTest({page: 1, pageSize: 5, apiPageSize: 10, expectedApiPage: 1});
